@@ -3,7 +3,8 @@ type Query {
   info: String!
   # feed parameters are provided by Prisma:
   # filter: any string, eager matching; skip: starting index, aka offset; first: the count, aka the limit
-  feed(filter: String, skip: Int, first: Int): [Link!]!
+  # orderBy gets the enum object, representing the various ways how the list of Link elements can be sorted.
+  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
   # Fetch a single link by its `id`
   link(id: ID!): Link
 }
@@ -50,4 +51,18 @@ type Vote {
   id: ID!
   link: Link!
   user: User!
+}
+
+enum LinkOrderByInput {
+  description_ASC
+  description_DESC
+  url_ASC
+  url_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type Feed {
+  links: [Link!]!
+  count: Int!
 }
