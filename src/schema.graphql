@@ -1,3 +1,4 @@
+# Root types:
 type Query {
   info: String!
   feed: [Link!]!
@@ -14,13 +15,21 @@ type Mutation {
   # User related mutations:
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  vote(linkId: ID!): Vote
 }
 
+type Subscription {
+  newLink: Link
+  newVote: Vote
+}
+
+#  Custom types:
 type Link {
   id: ID!
   description: String!
   url: String!
   postedBy: User
+  votes: [Vote!]!
 }
 
 type AuthPayload {
@@ -35,6 +44,8 @@ type User {
   links: [Link!]!
 }
 
-type Subscription {
-  newLink: Link
+type Vote {
+  id: ID!
+  link: Link!
+  user: User!
 }
