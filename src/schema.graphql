@@ -1,7 +1,9 @@
 # Root types:
 type Query {
   info: String!
-  feed: [Link!]!
+  # feed parameters are provided by Prisma:
+  # filter: any string, eager matching; skip: starting index, aka offset; first: the count, aka the limit
+  feed(filter: String, skip: Int, first: Int): [Link!]!
   # Fetch a single link by its `id`
   link(id: ID!): Link
 }
